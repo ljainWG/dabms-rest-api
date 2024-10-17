@@ -1,4 +1,4 @@
-package com.wg.dabms.appointment;
+package com.wg.dabms.appointment2;
 
 import com.wg.dabms.enums.AppointmentStatus;
 
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateAppointmentStatusDTO {
+public class UpdateAppointmentStatusDTO2 {
 	
 	@NotNull(message = "Appointment status cannot be null")
     @Enumerated(EnumType.STRING)

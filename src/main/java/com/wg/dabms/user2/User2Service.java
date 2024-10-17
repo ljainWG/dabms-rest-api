@@ -86,40 +86,40 @@ public class User2Service {
 //	 														Helper methods
 
 	// Role check methods
-	private boolean isAdmin(User2DTO user) {
+	public boolean isAdmin(User2DTO user) {
 	    return user.getUserRole() == UserRole.ADMIN;
 	}
 
-	private boolean isReceptionist(User2DTO user) {
+	public boolean isReceptionist(User2DTO user) {
 	    return user.getUserRole() == UserRole.RECEPTIONIST;
 	}
 
-	private boolean isCurrentUser(User2DTO currentUser, User2DTO user) {
+	public boolean isCurrentUser(User2DTO currentUser, User2DTO user) {
 	    return user.getUserUuid().equals(currentUser.getUserUuid());
 	}
 
-	private boolean isDoctor(User2DTO user) {
+	public boolean isDoctor(User2DTO user) {
 	    return user.getUserRole() == UserRole.DOCTOR; // Assuming DOCTOR is a role in UserRole enum
 	}
 
-	private boolean isPatient(User2DTO user) {
+	public boolean isPatient(User2DTO user) {
 	    return user.getUserRole() == UserRole.PATIENT; // Assuming PATIENT is a role in UserRole enum
 	}
 
 	// Modified authorization checks
-	private void checkAdminOrReceptionistAccess(User2DTO currentUser) {
+	public void checkAdminOrReceptionistAccess(User2DTO currentUser) {
 	    if (!isAdmin(currentUser) && !isReceptionist(currentUser)) {
 	        throw new UnauthorizedException("You are not authorized to access this endpoint.");
 	    }
 	}
 
-	private void checkUpdateAuthorization(User2DTO currentUser, User2DTO existingUser) {
+	public void checkUpdateAuthorization(User2DTO currentUser, User2DTO existingUser) {
 	    if (!isAdmin(currentUser) && !isCurrentUser(currentUser, existingUser)) {
 	        throw new UnauthorizedException("You are not authorized to update this user.");
 	    }
 	}
 
-	private void checkDeleteAuthorization(User2DTO currentUser, User2DTO userToDelete) {
+	public void checkDeleteAuthorization(User2DTO currentUser, User2DTO userToDelete) {
 	    if (!isCurrentUser(currentUser, userToDelete) && !isAdmin(currentUser)) {
 	        throw new UnauthorizedException("You do not have permission to delete this user.");
 	    }
