@@ -18,7 +18,7 @@ import com.wg.dabms.api_response.ApiResponseStatus;
 import com.wg.dabms.envelope.ErrorDetailsEnvelope;
 import com.wg.dabms.envelope.ResponseEnvelopeWithPagination;
 import com.wg.dabms.envelope.ResponseEnvelopeWithPagination2;
-import com.wg.dabms.newexceptions.UnauthorizedException;
+import com.wg.dabms.newexceptions.UnauthorizedAccessException;
 
 //
 @ControllerAdvice
@@ -74,8 +74,8 @@ public class CustomizedResponseEnityExceptionHandler extends ResponseEntityExcep
 	    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(UnauthorizedException.class) // Handle UnauthorizedException
-    public ResponseEntity<ErrorDetailsEnvelope> handleUnauthorizedException(UnauthorizedException ex, WebRequest request) {
+	@ExceptionHandler(UnauthorizedAccessException.class) // Handle UnauthorizedException
+    public ResponseEntity<ErrorDetailsEnvelope> handleUnauthorizedException(UnauthorizedAccessException ex, WebRequest request) {
         ErrorDetailsEnvelope errorDetails = new ErrorDetailsEnvelope(LocalDateTime.now(), ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN); // Return 403 Forbidden

@@ -20,7 +20,7 @@ import com.wg.dabms.enums.UserDepartment;
 import com.wg.dabms.enums.UserGender;
 import com.wg.dabms.enums.UserRole;
 import com.wg.dabms.envelope.ResponseEnvelopeWithPagination2;
-import com.wg.dabms.newexceptions.UnauthorizedException;
+import com.wg.dabms.newexceptions.UnauthorizedAccessException;
 import com.wg.dabms.newexceptions.UserAlreadyExistsException2;
 import com.wg.dabms.newexceptions.UserNotFoundException2;
 
@@ -109,19 +109,19 @@ public class User2Service {
 	// Modified authorization checks
 	public void checkAdminOrReceptionistAccess(User2DTO currentUser) {
 	    if (!isAdmin(currentUser) && !isReceptionist(currentUser)) {
-	        throw new UnauthorizedException("You are not authorized to access this endpoint.");
+	        throw new UnauthorizedAccessException("You are not authorized to access this endpoint.");
 	    }
 	}
 
 	public void checkUpdateAuthorization(User2DTO currentUser, User2DTO existingUser) {
 	    if (!isAdmin(currentUser) && !isCurrentUser(currentUser, existingUser)) {
-	        throw new UnauthorizedException("You are not authorized to update this user.");
+	        throw new UnauthorizedAccessException("You are not authorized to update this user.");
 	    }
 	}
 
 	public void checkDeleteAuthorization(User2DTO currentUser, User2DTO userToDelete) {
 	    if (!isCurrentUser(currentUser, userToDelete) && !isAdmin(currentUser)) {
-	        throw new UnauthorizedException("You do not have permission to delete this user.");
+	        throw new UnauthorizedAccessException("You do not have permission to delete this user.");
 	    }
 	}
 
@@ -133,7 +133,7 @@ public class User2Service {
 			return user2Repository.findByUserName(username)
 					.orElseThrow(() -> new UserNotFoundException2("User not found: " + username));
 		}
-		throw new UnauthorizedException("User is not authenticated.");
+		throw new UnauthorizedAccessException("User is not authenticated.");
 	}
 
 	// Build a success response

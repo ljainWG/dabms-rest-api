@@ -22,7 +22,6 @@ public class GlobalErrorHandler {
         ResponseEnvelopeWithPagination2 response = ResponseEnvelopeWithPagination2.builder()
                 .status(ApiResponseStatus.ERROR)
                 .message(ex.getMessage())
-                .data(null)
                 .error("User Not Found")
                 .timeStamp(LocalDateTime.now())
                 .build();
@@ -43,8 +42,8 @@ public class GlobalErrorHandler {
 
     // Handle other exceptions similarly
     
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ResponseEnvelopeWithPagination2> handleUnauthorizedException(UnauthorizedException ex, WebRequest request) {
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<ResponseEnvelopeWithPagination2> handleUnauthorizedException(UnauthorizedAccessException ex, WebRequest request) {
         ResponseEnvelopeWithPagination2 response = ResponseEnvelopeWithPagination2.builder()
                 .status(ApiResponseStatus.ERROR)
                 .message(ex.getMessage())
